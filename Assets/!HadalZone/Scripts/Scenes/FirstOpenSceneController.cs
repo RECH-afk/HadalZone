@@ -35,6 +35,8 @@ namespace RKS.HadalZone.UI
             CachePositions();
             PrepareUI();
             PlaySequence();
+
+            Audio.Play("UnderwaterAmbience");
         }
 
         private void CachePositions()
