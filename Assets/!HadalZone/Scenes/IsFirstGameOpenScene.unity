@@ -1550,9 +1550,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1194637538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2c1a33a5b18404cbe5da09cfe12b79, type: 3}
+  m_Script: {fileID: 11500000, guid: 13fe14a44c216734eba713fc7d269b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  soundName: Bubble
   hoverScale: 1.2
   pressScale: 0.9
   duration: 0.15
@@ -1593,7 +1594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: -1
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1703,9 +1704,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1230611598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2c1a33a5b18404cbe5da09cfe12b79, type: 3}
+  m_Script: {fileID: 11500000, guid: 13fe14a44c216734eba713fc7d269b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  soundName: Bubble
   hoverScale: 1.2
   pressScale: 0.9
   duration: 0.15
@@ -2615,7 +2617,7 @@ Canvas:
   m_GameObject: {fileID: 1564823664}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 1474932304}
   m_PlaneDistance: 1
   m_PixelPerfect: 0

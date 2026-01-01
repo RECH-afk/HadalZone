@@ -167,12 +167,24 @@ namespace RKS.HadalZone.Core.Managers
         public void PlayOneShot(string soundName)
         {
             if (!soundMap.TryGetValue(soundName, out var data)) return;
+            if (data.clips == null || data.clips.Length == 0) return;
 
-            AudioSource src = Camera.main.gameObject.AddComponent<AudioSource>();
+            AudioClip clip = data.clips[Random.Range(0, data.clips.Length)];
+
+            GameObject go = new GameObject($"OneShot_{soundName}");
+            go.transform.SetParent(transform);
+            AudioSource src = go.AddComponent<AudioSource>();
+            src.clip = clip;
+            src.volume = data.volume * masterVolume;
+            src.pitch = data.pitch;
             src.spatialBlend = 0f;
-            src.PlayOneShot(data.clips[Random.Range(0, data.clips.Length)], data.volume * masterVolume);
-            Destroy(src, data.clips[0].length);
+            src.loop = false;
+
+            src.Play();
+
+            Destroy(go, clip.length / Mathf.Abs(src.pitch));
         }
+
 
         public void PlayAndForget(string soundName, Vector3? position = null)
         {

@@ -37,6 +37,8 @@ namespace RKS.HadalZone.UI
             InitScreen(playContainer);
             InitScreen(settingsContainer);
             InitScreen(creditsContainer);
+
+            Audio.Play("UnderwaterAmbience");
         }
 
         void InitScreen(RectTransform screen)

@@ -6,12 +6,15 @@ using RKS.HadalZone.Core;
 namespace RKS.HadalZone.UI
 {
     [RequireComponent(typeof(RectTransform))]
-    public class UIScaleOnPointer : RKSBehaviour,
+    public class UIEvent : RKSBehaviour,
         IPointerEnterHandler,
         IPointerExitHandler,
         IPointerDownHandler,
         IPointerUpHandler
     {
+        [Header("Sound")]
+        [SerializeField] private string soundName;
+
         [Header("Scale")]
         [SerializeField] private float hoverScale = 1.2f;
         [SerializeField] private float pressScale = 0.9f;
@@ -49,6 +52,7 @@ namespace RKS.HadalZone.UI
         public void OnPointerEnter(PointerEventData eventData)
         {
             ScaleTo(startScale * hoverScale, duration, hoverEase);
+            Audio.PlayOneShot("Bubble");
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -59,6 +63,7 @@ namespace RKS.HadalZone.UI
         public void OnPointerDown(PointerEventData eventData)
         {
             ScaleTo(startScale * pressScale, duration * 0.8f, pressEase);
+            Audio.Play("TrickleClicker");
         }
 
         public void OnPointerUp(PointerEventData eventData)

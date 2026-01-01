@@ -45,18 +45,15 @@ namespace RKS.HadalZone.UI
 
         private void PrepareUI()
         {
-            // FIRST WINDOW
             firstWindow.gameObject.SetActive(true);
             firstWindow.anchoredPosition = firstPos + Vector2.up * 450f;
             firstWindow.localRotation = Quaternion.identity;
             firstWindow.localScale = Vector3.one;
 
-            // SECOND WINDOW
             secondWindow.gameObject.SetActive(false);
             secondWindow.anchoredPosition = secondPos + Vector2.up * 300f;
             secondWindow.localScale = Vector3.one;
 
-            // BUTTON / TOGGLE
             toggleAgreeRectTransform.anchoredPosition =
                 new Vector2(middleTogglePosX, toggleAgreeRectTransform.anchoredPosition.y);
 
@@ -71,7 +68,6 @@ namespace RKS.HadalZone.UI
         {
             Sequence seq = DOTween.Sequence();
 
-            // ===== FIRST WINDOW IN =====
             seq.Append(firstWindow.DOAnchorPos(firstPos, 0.25f).SetEase(Ease.OutCubic));
 
             seq.Append(firstWindow.DOShakeRotation(
@@ -83,11 +79,7 @@ namespace RKS.HadalZone.UI
             ));
 
             seq.Append(firstWindow.DOPunchScale(Vector3.one * 0.06f, 0.15f, 10, 1));
-
-            // ===== WAIT =====
             seq.AppendInterval(delayBeforeSecondWindow);
-
-            // ===== FIRST WINDOW OUT =====
             seq.Append(firstWindow.DOShakePosition(0.15f, 20f, 25));
             seq.Append(firstWindow.DOAnchorPos(firstPos + Vector2.down * 200f, 0.2f)
                 .SetEase(Ease.InCubic));
@@ -98,7 +90,6 @@ namespace RKS.HadalZone.UI
                 secondWindow.gameObject.SetActive(true);
             });
 
-            // ===== SECOND WINDOW IN =====
             seq.Append(secondWindow.DOAnchorPos(secondPos, 0.25f).SetEase(Ease.OutCubic));
 
             seq.Append(secondWindow.DOPunchScale(
