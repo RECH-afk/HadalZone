@@ -6,7 +6,7 @@ using RKS.HadalZone.Core;
 namespace RKS.HadalZone.UI
 {
     [RequireComponent(typeof(RectTransform))]
-    public class UIEvent : RKSBehaviour,
+    public class UIInteractionFeedback : RKSBehaviour,
         IPointerEnterHandler,
         IPointerExitHandler,
         IPointerDownHandler,

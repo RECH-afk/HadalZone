@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 51279059}
+  - component: {fileID: 51279060}
   m_Layer: 5
   m_Name: PlayContainer
   m_TagString: Untagged
@@ -157,6 +158,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -435}
   m_SizeDelta: {x: 1016, y: 749.8}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &51279060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51279058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d338232f6233b42a83c27a2384d9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITiltCard
+  maxTilt: 10
+  smooth: 10
 --- !u!1 &97542510
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +183,7 @@ GameObject:
   - component: {fileID: 97542511}
   - component: {fileID: 97542517}
   - component: {fileID: 97542516}
+  - component: {fileID: 97542518}
   - component: {fileID: 97542515}
   - component: {fileID: 97542514}
   - component: {fileID: 97542513}
@@ -187,7 +203,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97542510}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000052264375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -197,8 +213,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -0.015380859, y: 50.963013}
-  m_SizeDelta: {x: 471.0107, y: 648.0739}
+  m_AnchoredPosition: {x: -0.015411377, y: 50.963013}
+  m_SizeDelta: {x: 471.01074, y: 648.0739}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &97542512
 MonoBehaviour:
@@ -328,6 +344,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97542510}
   m_CullTransparentMesh: 1
+--- !u!114 &97542518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97542510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d338232f6233b42a83c27a2384d9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITiltCard
+  maxTilt: 5
+  smooth: 10
 --- !u!1 &157207112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,6 +2353,7 @@ GameObject:
   - component: {fileID: 846632396}
   - component: {fileID: 846632402}
   - component: {fileID: 846632401}
+  - component: {fileID: 846632403}
   - component: {fileID: 846632400}
   - component: {fileID: 846632399}
   - component: {fileID: 846632398}
@@ -2483,6 +2514,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846632395}
   m_CullTransparentMesh: 1
+--- !u!114 &846632403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846632395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d338232f6233b42a83c27a2384d9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITiltCard
+  maxTilt: 5
+  smooth: 10
 --- !u!1 &973997293
 GameObject:
   m_ObjectHideFlags: 0
@@ -3935,6 +3980,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1337577774}
+  - component: {fileID: 1337577775}
   m_Layer: 5
   m_Name: CreditsContainer
   m_TagString: Untagged
@@ -3964,6 +4010,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -435}
   m_SizeDelta: {x: 1016, y: 749.8}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &1337577775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337577773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d338232f6233b42a83c27a2384d9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITiltCard
+  maxTilt: 10
+  smooth: 10
 --- !u!1 &1351912595
 GameObject:
   m_ObjectHideFlags: 0
@@ -3973,6 +4033,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1351912596}
+  - component: {fileID: 1351912597}
   m_Layer: 5
   m_Name: SettingsContainer
   m_TagString: Untagged
@@ -4002,6 +4063,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -435}
   m_SizeDelta: {x: 1016, y: 749.8}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &1351912597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351912595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d338232f6233b42a83c27a2384d9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITiltCard
+  maxTilt: 10
+  smooth: 10
 --- !u!1 &1356434167
 GameObject:
   m_ObjectHideFlags: 0
@@ -4770,6 +4845,7 @@ GameObject:
   - component: {fileID: 1912658935}
   - component: {fileID: 1912658937}
   - component: {fileID: 1912658938}
+  - component: {fileID: 1912658939}
   m_Layer: 5
   m_Name: LogoImage
   m_TagString: Untagged
@@ -4831,6 +4907,20 @@ MonoBehaviour:
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
+--- !u!114 &1912658939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912658934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d338232f6233b42a83c27a2384d9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UITiltCard
+  maxTilt: 15
+  smooth: 10
 --- !u!1 &1924599915
 GameObject:
   m_ObjectHideFlags: 0
