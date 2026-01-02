@@ -12,8 +12,9 @@ namespace RKS.HadalZone.UI
         IPointerDownHandler,
         IPointerUpHandler
     {
-        [Header("Sound")]
-        [SerializeField] private string soundName;
+        [Header("Sounds")]
+        [SerializeField] private string onPointerEnterSoundName = "Bubble";
+        [SerializeField] private string onClickSoundName = "TrickleClicker";
 
         [Header("Scale")]
         [SerializeField] private float hoverScale = 1.2f;
@@ -52,7 +53,7 @@ namespace RKS.HadalZone.UI
         public void OnPointerEnter(PointerEventData eventData)
         {
             ScaleTo(startScale * hoverScale, duration, hoverEase);
-            Audio.PlayOneShot("Bubble");
+            Audio.PlayOneShot(onPointerEnterSoundName);
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -63,7 +64,7 @@ namespace RKS.HadalZone.UI
         public void OnPointerDown(PointerEventData eventData)
         {
             ScaleTo(startScale * pressScale, duration * 0.8f, pressEase);
-            Audio.Play("TrickleClicker");
+            Audio.Play(onClickSoundName);
         }
 
         public void OnPointerUp(PointerEventData eventData)

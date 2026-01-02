@@ -27,6 +27,8 @@ namespace RKS.HadalZone.UI
 
         private RectTransform currentScreen;
 
+        private bool isTransitioning;
+
         protected override void OnReady()
         {
             buttonsStartPos = buttonsContainer.anchoredPosition;
@@ -41,6 +43,14 @@ namespace RKS.HadalZone.UI
             Audio.Play("UnderwaterAmbience");
         }
 
+        protected override void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                HandleEscape();
+            }
+        }
+
         void InitScreen(RectTransform screen)
         {
             screen.anchoredPosition -= Vector2.up * moveDistance;
@@ -53,11 +63,30 @@ namespace RKS.HadalZone.UI
         {
             Application.Quit();
         }
+        void HandleEscape()
+        {
+            if (isTransitioning)
+                return;
+
+            if (currentScreen != null)
+            {
+                HideCurrentScreen();
+                return;
+            }
+
+           // Quit();
+        }
+
 
         public void BackToMenu() => HideCurrentScreen();
 
         void ShowScreen(RectTransform screen)
         {
+            if (isTransitioning)
+                return;
+
+            isTransitioning = true;
+
             if (currentScreen != null)
                 HideScreen(currentScreen);
 
@@ -72,11 +101,17 @@ namespace RKS.HadalZone.UI
                 .SetEase(ease);
 
             AnimateLogoUp();
+
+            DOVirtual.DelayedCall(duration, () => isTransitioning = false);
         }
+
 
         void HideCurrentScreen()
         {
-            if (currentScreen == null) return;
+            if (isTransitioning || currentScreen == null)
+                return;
+
+            isTransitioning = true;
 
             buttonsContainer
                 .DOAnchorPos(buttonsStartPos, duration)
@@ -87,7 +122,10 @@ namespace RKS.HadalZone.UI
             currentScreen = null;
 
             AnimateLogoDown();
+
+            DOVirtual.DelayedCall(duration, () => isTransitioning = false);
         }
+
 
         void HideScreen(RectTransform screen)
         {

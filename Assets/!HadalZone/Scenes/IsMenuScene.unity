@@ -1031,7 +1031,7 @@ MonoBehaviour:
   moveDistance: 900
   duration: 0.5
   ease: 18
-  logoMoveUp: 150
+  logoMoveUp: 155
   logoScale: 0.65
 --- !u!4 &359157397
 Transform:
