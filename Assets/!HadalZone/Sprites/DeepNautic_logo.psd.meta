@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3ce1124db6166dc4282ca8047f6f01ab
+guid: 4f62693a5df739f40aa1613100c7083d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -93,14 +93,71 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: DeepNautic_logo_0
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 393
+        width: 1536
+        height: 309
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7373684e458790c45862090318c54051
+      internalID: -1710767585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeepNautic_logo_1
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 412
+        width: 370
+        height: 270
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fd22fcf37c207f46a3d59f6cbb6c9b4
+      internalID: -1887364060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 30a25ef6f6c0d064ebfb5c7e44cf8908
     internalID: 0
     vertices: []
     indices: 
@@ -109,7 +166,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DeepNautic_logo_0: -1710767585
+      DeepNautic_logo_1: -1887364060
+      DeepNautic_logo_2: -1723655818
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
