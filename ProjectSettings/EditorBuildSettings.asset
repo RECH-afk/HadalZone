@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/!HadalZone/Scenes/IsIntroScene.unity
+    guid: b2aa293de3c1b3242bf4b60d7c2667b0
+  - enabled: 1
+    path: Assets/!HadalZone/Scenes/IsFirstGameOpenScene.unity
+    guid: 34f8e934fa8a4e04c948333c3a59e705
+  - enabled: 1
     path: Assets/!HadalZone/Scenes/IsMenuScene.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
   m_configObjects:

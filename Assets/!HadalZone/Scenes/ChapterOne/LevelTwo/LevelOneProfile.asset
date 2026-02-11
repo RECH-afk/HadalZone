@@ -91,6 +91,28 @@ MonoBehaviour:
   directionalLightsOnly:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &-3899316304443538093
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df8c151eae54d846b0a701c08d972ce, type: 3}
+  m_Name: Dithering
+  m_EditorClassIdentifier: Assembly-CSharp::Dithering
+  active: 1
+  PatternIndex:
+    m_OverrideState: 1
+    m_Value: 3
+  DitherThreshold:
+    m_OverrideState: 1
+    m_Value: 10
+  DitherScale:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &-215067426487381057
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -145,12 +167,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: IsGameSceneProfile
+  m_Name: LevelOneProfile
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.VolumeProfile
   components:
   - {fileID: -215067426487381057}
   - {fileID: 3202956627201195011}
   - {fileID: -6087566715488475295}
+  - {fileID: -3899316304443538093}
+  - {fileID: 527643507783932606}
+--- !u!114 &527643507783932606
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f946aea2a4821244b6ba2812d186754, type: 3}
+  m_Name: PixelationEffect
+  m_EditorClassIdentifier: Assembly-CSharp::PixelationEffect
+  active: 1
+  Width:
+    m_OverrideState: 1
+    m_Value: 1024
+  Height:
+    m_OverrideState: 1
+    m_Value: 768
+  Color:
+    m_OverrideState: 1
+    m_Value: 54.53
 --- !u!114 &3202956627201195011
 MonoBehaviour:
   m_ObjectHideFlags: 3

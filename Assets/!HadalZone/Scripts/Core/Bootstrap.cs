@@ -70,6 +70,7 @@ namespace RKS.HadalZone.Core
         private void LoadNextScene()
         {
             var data = Save.CurrentData;
+            Debug.Log(data.language);
 
             if (data.isFirstRun)
             {

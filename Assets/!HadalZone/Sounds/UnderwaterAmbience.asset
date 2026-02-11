@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
   soundName: UnderwaterAmbience
   clips:
-  - {fileID: 8300000, guid: 7807bc81b80e5d04f9e7832d00725f26, type: 3}
+  - {fileID: 8300000, guid: 0f6d76890cdbc694bbd8baf519aae2bd, type: 3}
   volume: 1
   pitch: 1
   loop: 1
