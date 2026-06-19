@@ -14,6 +14,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/!HadalZone/Scenes/IsMenuScene.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
+  - enabled: 1
+    path: Assets/!HadalZone/Scenes/ChapterOne/LevelOne.unity
+    guid: 0699c013843f07f4ba14c0e7472309f6
+  - enabled: 1
+    path: Assets/!HadalZone/Scenes/ChapterOne/LevelTwo.unity
+    guid: cf54c1d3c1f4cae44a7de8cc797d8024
+  - enabled: 1
+    path: Assets/!HadalZone/Scenes/ChapterOne/LevelThree.unity
+    guid: 20380c435f8768e4782d3e0a97d34a5b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
-  m_UseUCBPForAssetBundles: 0

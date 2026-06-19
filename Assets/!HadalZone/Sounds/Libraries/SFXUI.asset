@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35cfb561744568547b4a86cdb735f7be, type: 3}
-  m_Name: SFX
+  m_Name: SFXUI
   m_EditorClassIdentifier: Assembly-CSharp::SoundLibrary
   sounds:
-  - {fileID: 11400000, guid: aa18204fa6da802419cfa9a14d3f16ce, type: 2}
+  - {fileID: 11400000, guid: 51bf228ba55d7fe48b97fac05270d978, type: 2}
+  - {fileID: 11400000, guid: bd5f1f26367f7ca46a997bcacb201baa, type: 2}

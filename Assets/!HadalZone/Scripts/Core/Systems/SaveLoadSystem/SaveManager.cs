@@ -44,7 +44,7 @@ namespace RKS.HadalZone.Core.Managers
             }
 
             WriteToFile(CurrentData);
-            Debug.Log("[SaveManager] Data saved successfully (via CurrentData).");
+            Debug.Log("[SaveManager] Data saved successfully.");
         }
 
         private void WriteToFile(GameData.Data data)
