@@ -24761,7 +24761,7 @@ MonoBehaviour:
   ripplesFadeToggle: 1
   supportLargeCurrent: 0
   largeCurrentRes: 512
-  largeCurrentSpeedValue: 100
+  largeCurrentSpeedValue: 70
   largeCurrentMap: {fileID: 0}
   largeCurrentRegionExtent: {x: 100, y: 100}
   largeCurrentRegionOffset: {x: 0, y: 0}
@@ -40045,7 +40045,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 8121372f8afc97645866eb3e849451db, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -106248,10 +106248,11 @@ MonoBehaviour:
   lightningLight: {fileID: 307219986}
   showDelay: 3
   shakeDelay: 2
-  shakeDuration: 0.5
-  shakeStrength: 20
+  shakeDuration: 0.7
+  shakeStrength: 50
   startCharacterSpacing: 20
   spacingDuration: 10
+  defaultColor: {r: 0.4392157, g: 0.92156863, b: 0.9254902, a: 1}
 --- !u!4 &1734887675
 Transform:
   m_ObjectHideFlags: 0
@@ -133921,7 +133922,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 8121372f8afc97645866eb3e849451db, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0

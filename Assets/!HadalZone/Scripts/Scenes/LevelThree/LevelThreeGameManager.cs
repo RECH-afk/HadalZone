@@ -21,7 +21,7 @@ public class LevelThreeGameManager : RKSBehaviour
     [SerializeField] private float startCharacterSpacing = 20f;
     [SerializeField] private float spacingDuration = 2f;
 
-    private void Start()
+    protected override void OnReady()
     {
         lightningLight.SetActive(false);
         PlayAnimation();
@@ -34,19 +34,15 @@ public class LevelThreeGameManager : RKSBehaviour
 
         Sequence sequence = DOTween.Sequence();
 
-        // Ждём перед появлением текста
         sequence.AppendInterval(showDelay);
 
-        // Показываем текст
         sequence.AppendCallback(() =>
         {
             textMesh.alpha = 1f;
         });
 
-        // Ждём перед первой тряской
         sequence.AppendInterval(shakeDelay);
 
-        // Молния + первая тряска
         sequence.AppendCallback(() =>
         {
             LightningFlash();
@@ -62,8 +58,6 @@ public class LevelThreeGameManager : RKSBehaviour
                 true
             )
         );
-
-        // Сужаем spacing до 0
         sequence.Append(
             DOTween.To(
                 () => textMesh.characterSpacing,
@@ -74,7 +68,6 @@ public class LevelThreeGameManager : RKSBehaviour
             .SetEase(Ease.InOutSine)
         );
 
-        // Финальная тряска
         sequence.AppendCallback(() =>
         {
             LightningFlash();
@@ -88,7 +81,6 @@ public class LevelThreeGameManager : RKSBehaviour
                 true
             );
 
-            // На середине тряски текст исчезает
             DOVirtual.DelayedCall(shakeDuration * 0.5f, () =>
             {
                 textMesh.alpha = 0f;
@@ -107,21 +99,21 @@ public class LevelThreeGameManager : RKSBehaviour
             lightningLight.SetActive(true);
         });
 
-        flash.AppendInterval(0.07f);
+        flash.AppendInterval(0.08f);
 
         flash.AppendCallback(() =>
         {
             lightningLight.SetActive(false);
         });
 
-        flash.AppendInterval(0.08f);
+        flash.AppendInterval(0.09f);
 
         flash.AppendCallback(() =>
         {
             lightningLight.SetActive(true);
         });
 
-        flash.AppendInterval(0.05f);
+        flash.AppendInterval(0.1f);
 
         flash.AppendCallback(() =>
         {
