@@ -1,123 +1,80 @@
 using DG.Tweening;
 using RKS.HadalZone.Core;
-using TMPro;
+using RKS.HadalZone.UI;
+using RKS.HadalZone.Environment;
 using UnityEngine;
 
-public class LevelThreeGameManager : RKSBehaviour
+namespace RKS.HadalZone.Core.Managers
 {
-    [Header("References")]
-    [SerializeField] private TextMeshProUGUI textMesh;
-    [SerializeField] private GameObject lightningLight;
-
-    [Header("Timing")]
-    [SerializeField] private float showDelay = 3f;
-    [SerializeField] private float shakeDelay = 2f;
-
-    [Header("Shake")]
-    [SerializeField] private float shakeDuration = 0.5f;
-    [SerializeField] private float shakeStrength = 20f;
-
-    [Header("Spacing")]
-    [SerializeField] private float startCharacterSpacing = 20f;
-    [SerializeField] private float spacingDuration = 2f;
-
-    protected override void OnReady()
+    public class LevelThreeGameManager : RKSBehaviour
     {
-        lightningLight.SetActive(false);
-        PlayAnimation();
-    }
+        [Header("References")]
+        [SerializeField] private NarrativeText narrativeText;
+        [SerializeField] private LightningEffect lightningEffect;
 
-    public void PlayAnimation()
-    {
-        textMesh.alpha = 0f;
-        textMesh.characterSpacing = startCharacterSpacing;
+        [Header("Timing")]
+        [SerializeField] private float showDelay = 3f;
+        [SerializeField] private float shakeDelay = 2f;
 
-        Sequence sequence = DOTween.Sequence();
+        [Header("Shake")]
+        [SerializeField] private float shakeDuration = 0.5f;
+        [SerializeField] private float shakeStrength = 20f;
 
-        sequence.AppendInterval(showDelay);
+        [Header("Spacing")]
+        [SerializeField] private float startCharacterSpacing = 20f;
+        [SerializeField] private float spacingDuration = 2f;
 
-        sequence.AppendCallback(() =>
+        protected override void OnReady()
         {
-            textMesh.alpha = 1f;
-        });
+            narrativeText.Hide();
+            narrativeText.SetSpacing(startCharacterSpacing);
 
-        sequence.AppendInterval(shakeDelay);
+            PlayAnimation();
+        }
 
-        sequence.AppendCallback(() =>
+        private void PlayAnimation()
         {
-            LightningFlash();
-        });
+            Sequence sequence = DOTween.Sequence();
 
-        sequence.Append(
-            textMesh.rectTransform.DOShakeAnchorPos(
-                shakeDuration,
-                shakeStrength,
-                20,
-                90,
-                false,
-                true
-            )
-        );
-        sequence.Append(
-            DOTween.To(
-                () => textMesh.characterSpacing,
-                x => textMesh.characterSpacing = x,
-                0f,
-                spacingDuration
-            )
-            .SetEase(Ease.InOutSine)
-        );
+            sequence.AppendInterval(showDelay);
 
-        sequence.AppendCallback(() =>
-        {
-            LightningFlash();
+            sequence.AppendCallback(narrativeText.Show);
 
-            textMesh.rectTransform.DOShakeAnchorPos(
-                shakeDuration,
-                shakeStrength,
-                20,
-                90,
-                false,
-                true
+            sequence.AppendInterval(shakeDelay);
+
+            sequence.AppendCallback(() =>
+            {
+                lightningEffect.Play();
+            });
+
+            sequence.Append(
+                narrativeText.Shake(
+                    shakeDuration,
+                    shakeStrength
+                )
             );
 
-            DOVirtual.DelayedCall(shakeDuration * 0.5f, () =>
+            sequence.Append(
+                narrativeText.AnimateSpacing(
+                    0f,
+                    spacingDuration
+                )
+            );
+
+            sequence.AppendCallback(() =>
             {
-                textMesh.alpha = 0f;
+                lightningEffect.Play();
+
+                narrativeText.Shake(
+                    shakeDuration,
+                    shakeStrength
+                );
+
+                DOVirtual.DelayedCall(
+                    shakeDuration * 0.5f,
+                    narrativeText.Hide
+                );
             });
-        });
-    }
-
-    private void LightningFlash()
-    {
-        Sequence flash = DOTween.Sequence();
-
-        Audio.Play("Thunder");
-
-        flash.AppendCallback(() =>
-        {
-            lightningLight.SetActive(true);
-        });
-
-        flash.AppendInterval(0.08f);
-
-        flash.AppendCallback(() =>
-        {
-            lightningLight.SetActive(false);
-        });
-
-        flash.AppendInterval(0.09f);
-
-        flash.AppendCallback(() =>
-        {
-            lightningLight.SetActive(true);
-        });
-
-        flash.AppendInterval(0.1f);
-
-        flash.AppendCallback(() =>
-        {
-            lightningLight.SetActive(false);
-        });
+        }
     }
 }

@@ -27799,13 +27799,14 @@ GameObject:
   - component: {fileID: 307219989}
   - component: {fileID: 307219988}
   - component: {fileID: 307219987}
+  - component: {fileID: 307219990}
   m_Layer: 0
-  m_Name: Thunder
+  m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &307219987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27954,7 +27955,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307219986}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -28027,6 +28028,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1281481778}
   m_LocalEulerAnglesHint: {x: 15.299, y: -51.097, z: -1.722}
+--- !u!114 &307219990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307219986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 550f10e22a966544ba296e73c8ab111b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RKS.HadalZone.Environment.LightningEffect
 --- !u!1 &310037109
 GameObject:
   m_ObjectHideFlags: 0
@@ -45490,8 +45503,9 @@ GameObject:
   - component: {fileID: 584762040}
   - component: {fileID: 584762042}
   - component: {fileID: 584762041}
+  - component: {fileID: 584762043}
   m_Layer: 5
-  m_Name: EpisodeText
+  m_Name: NarrativeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45617,6 +45631,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 584762039}
   m_CullTransparentMesh: 1
+--- !u!114 &584762043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584762039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4468558e06dd84c4f930fb14e576cdca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!4 &585446246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b4b787dcf536a8346a9d27f855f01abe, type: 3}
@@ -106244,15 +106270,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95179ccdb16613e4b9d3c9397c3e865d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  textMesh: {fileID: 584762041}
-  lightningLight: {fileID: 307219986}
+  narrativeText: {fileID: 584762043}
+  lightningEffect: {fileID: 307219990}
   showDelay: 3
   shakeDelay: 2
-  shakeDuration: 0.7
-  shakeStrength: 50
+  shakeDuration: 0.5
+  shakeStrength: 30
   startCharacterSpacing: 20
   spacingDuration: 10
-  defaultColor: {r: 0.4392157, g: 0.92156863, b: 0.9254902, a: 1}
 --- !u!4 &1734887675
 Transform:
   m_ObjectHideFlags: 0
@@ -106262,7 +106287,7 @@ Transform:
   m_GameObject: {fileID: 1734887673}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 46.396004, y: 1.8365275, z: 1.3358551}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -6,11 +6,7 @@ using RKS.HadalZone.Core;
 namespace RKS.HadalZone.UI
 {
     [RequireComponent(typeof(RectTransform))]
-    public class UIInteractionFeedback : RKSBehaviour,
-        IPointerEnterHandler,
-        IPointerExitHandler,
-        IPointerDownHandler,
-        IPointerUpHandler
+    public class UIInteractionFeedback : RKSBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
         [Header("Sounds")]
         [SerializeField] private string onPointerEnterSoundName = "Bubble";
@@ -48,8 +44,6 @@ namespace RKS.HadalZone.UI
             transform.localScale = startScale;
         }
 
-        #region Pointer Events
-
         public void OnPointerEnter(PointerEventData eventData)
         {
             ScaleTo(startScale * hoverScale, duration, hoverEase);
@@ -72,8 +66,6 @@ namespace RKS.HadalZone.UI
 
             ScaleTo(startScale * hoverScale, duration, hoverEase);
         }
-
-        #endregion
 
         private void ScaleTo(Vector3 target, float time, Ease ease)
         {
