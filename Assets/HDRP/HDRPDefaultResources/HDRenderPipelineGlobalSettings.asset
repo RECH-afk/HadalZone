@@ -184,7 +184,6 @@ MonoBehaviour:
       - rid: 7049816365165969421
       - rid: 7049816365165969422
       - rid: 7049816365165969423
-      - rid: 7049816365165969424
       - rid: 7049816365165969425
       - rid: 7049816365165969426
       - rid: 7049816365165969427
@@ -200,7 +199,29 @@ MonoBehaviour:
       - rid: 7049816365165969437
       - rid: 6813379168514080768
     m_RuntimeSettings:
-      m_List: []
+      m_List:
+      - rid: 8556427327610290176
+      - rid: 8556427327610290180
+      - rid: 7049816365165969409
+      - rid: 7049816365165969410
+      - rid: 7049816365165969411
+      - rid: 7049816365165969412
+      - rid: 7049816365165969413
+      - rid: 7049816365165969414
+      - rid: 7049816365165969415
+      - rid: 7049816365165969416
+      - rid: 7049816365165969418
+      - rid: 7049816365165969419
+      - rid: 7049816365165969420
+      - rid: 7049816365165969423
+      - rid: 7049816365165969427
+      - rid: 7049816365165969428
+      - rid: 7049816365165969429
+      - rid: 7049816365165969430
+      - rid: 7049816365165969432
+      - rid: 7049816365165969433
+      - rid: 7049816365165969435
+      - rid: 7049816365165969436
   renderingLayerNames:
   - Light Layer default
   - Light Layer 1
@@ -364,6 +385,7 @@ MonoBehaviour:
         m_PreIntegratedFGD_MarschnerPS: {fileID: 4800000, guid: 31f36caf0a5e7f848a1b5328b6ad3eb8, type: 3}
         m_PreIntegratedFiberScatteringCS: {fileID: 7200000, guid: 4a087c9d074552c48aeb85184d56312e, type: 3}
         m_VolumetricMaterialCS: {fileID: 7200000, guid: 26f18c9cb0bccbf4481f8c84579affb1, type: 3}
+        m_ClearVolumetricMaterialCS: {fileID: 7200000, guid: a34e917ab17a38d419e6dd712988ac15, type: 3}
         m_EyeMaterialCS: {fileID: 7200000, guid: 76f78ba05cea1ed449c1ef613ab90597, type: 3}
         m_FilterAreaLightCookiesPS: {fileID: 4800000, guid: c243aac96dda5fa40bed693ed5ba02c4, type: 3}
         m_BuildProbabilityTablesCS: {fileID: 7200000, guid: b9f26cf340afe9145a699753531b2a4c, type: 3}
@@ -608,11 +630,6 @@ MonoBehaviour:
       data:
         m_Version: 1
         m_EnableMaskAndCurrentWaterDecals: 1
-    - rid: 7049816365165969424
-      type: {class: RenderGraphSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
-      data:
-        m_Version: 0
-        m_DynamicRenderPassCulling: 0
     - rid: 7049816365165969425
       type: {class: HDRenderPipelineEditorAssets, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
       data:
@@ -672,6 +689,11 @@ MonoBehaviour:
       type: {class: RenderingDebuggerRuntimeResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
       data:
         m_version: 0
+        m_PanelSettings: {fileID: 11400000, guid: fa69697be3070b04a893666f5947f18c, type: 2}
+        m_StyleSheets:
+        - {fileID: 7433441132597879392, guid: 0ff99fd36f66f1a41bcc1d3c90e0922a, type: 3}
+        - {fileID: 7433441132597879392, guid: 3a8aa4d508da46d4dace18b280f064aa, type: 3}
+        m_VisualTreeAsset: {fileID: 9197481963319205126, guid: b647ceb1e15264943b9b439971e71110, type: 3}
     - rid: 7049816365165969432
       type: {class: ShaderStrippingSetting, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
       data:
