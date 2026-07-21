@@ -229,7 +229,7 @@ MonoBehaviour:
     supportVolumetrics: 1
     supportVolumetricClouds: 1
     supportLightLayers: 1
-    renderingLayerMaskBuffer: 0
+    renderingLayerMaskBuffer: 1
     supportWater: 1
     waterSimulationResolution: 128
     supportWaterExclusion: 1

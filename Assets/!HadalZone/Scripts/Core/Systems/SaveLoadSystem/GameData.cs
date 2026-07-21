@@ -9,6 +9,7 @@ namespace RKS.HadalZone.Core
         {
             public bool isFirstRun = true;
             public bool isPlayerAgreedPlay = false;
+            public bool isShadersCompiled = false;
             public string language = "en_US";
             public int frameRateIndex = 1;
             public int windowModeIndex = 0;

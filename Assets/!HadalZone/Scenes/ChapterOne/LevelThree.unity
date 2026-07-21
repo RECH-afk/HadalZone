@@ -7715,6 +7715,7 @@ RectTransform:
   m_Children:
   - {fileID: 584762040}
   - {fileID: 382523908}
+  - {fileID: 1549565154}
   m_Father: {fileID: 641928898}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -29219,7 +29220,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: 9508a528d00a0884588aa4a981e3800a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -49535,9 +49536,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   uiSwayObject: {fileID: 10775985}
   targetCamera: {fileID: 63008692}
+  player: {fileID: 1716634348}
   swayAmount: 50
   smoothTime: 5
   returnSpeed: 1
+  bobSpeed: 8
+  bobAmountX: 8
+  bobAmountY: 5
 --- !u!4 &646428895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6285606d920b76e42a5e2178cd294ba6, type: 3}
@@ -57089,8 +57094,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9156347143994207883, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      propertyPath: field of view
+      value: 60.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156347143994207883, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      propertyPath: m_FocalLength
+      value: 20.78461
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156347143994207883, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: near clip plane
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156347143994207883, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: canJump
@@ -57163,6 +57180,10 @@ PrefabInstance:
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: walkingBobbingSpeed
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      propertyPath: zoomSensitivityMultiplier
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445546, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -85332,7 +85353,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: 9508a528d00a0884588aa4a981e3800a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98029,6 +98050,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1 &1549565153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1549565154}
+  - component: {fileID: 1549565156}
+  - component: {fileID: 1549565155}
+  m_Layer: 5
+  m_Name: PirateEyePitch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1549565154
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549565153}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00018293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 10775985}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.00012207031, y: 196}
+  m_SizeDelta: {x: 734.8, y: 1131}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1549565155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549565153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: d3e1ef8d8203f9a4ca5e80798d37a830, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1549565156
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549565153}
+  m_CullTransparentMesh: 1
 --- !u!4 &1553449336 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 477d709f1e37313448c9b769c17cfa5d, type: 3}
@@ -105711,6 +105807,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 477d709f1e37313448c9b769c17cfa5d, type: 3}
   m_PrefabInstance: {fileID: 743511439}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1716634348 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+  m_PrefabInstance: {fileID: 799561869}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2922308556bc98e4898cb3309250e781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1718969518
 GameObject:
   m_ObjectHideFlags: 0
@@ -107504,7 +107611,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: 9508a528d00a0884588aa4a981e3800a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

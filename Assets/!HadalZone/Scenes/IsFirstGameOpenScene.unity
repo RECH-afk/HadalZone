@@ -335,8 +335,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.45742, y: -0.0004272461}
-  m_SizeDelta: {x: 456.8916, y: 65.273}
+  m_AnchoredPosition: {x: 9.999604, y: -0.0004272461}
+  m_SizeDelta: {x: 508.62, y: 65.273}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &35329722
 MonoBehaviour:
@@ -385,7 +385,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.4
+  m_fontSize: 28.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -608,7 +608,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<wave amp=3>Shaders are currently compiling;\n this may take some time."
+  m_text: "<wave amp=3>\u041E\u041F\u0422\u0418\u041C\u0418\u0417\u0418\u0420\u0423\u0415\u041C
+    \u0428\u0415\u0419\u0414\u0415\u0420\u042B. \u042D\u0422\u041E \u041C\u041E\u0416\u0415\u0422
+    \u0417\u0410\u041D\u042F\u0422\u042C \u041F\u0410\u0420\u0423 \u0421\u0415\u041A\u0423\u041D\u0414."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0cd81bc11029ef645b7b7d1099afe346, type: 2}
   m_sharedMaterial: {fileID: 2264415120077898921, guid: 0cd81bc11029ef645b7b7d1099afe346, type: 2}
@@ -888,7 +890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &382344711
 Transform:
   m_ObjectHideFlags: 0
@@ -918,15 +920,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   firstWindow: {fileID: 880874299}
   secondWindow: {fileID: 1140054250}
+  thirdWindow: {fileID: 2092990499}
   toggleAgreeRectTransform: {fileID: 1194637539}
   buttonAgreeRectTransform: {fileID: 1230611605}
   toggleAgree: {fileID: 1194637540}
   buttonAgree: {fileID: 1230611599}
+  progressBar: {fileID: 1523008842}
+  progressText: {fileID: 1786707366}
   middleTogglePosX: 0
   rightTogglePosX: -300
   downButtonPosY: -100
   topButtonPosY: 70
   delayBeforeSecondWindow: 5
+  shaderVariants: {fileID: 20000000, guid: fbcffe1ef3d1a004b8de2ddefba85bd6, type: 2}
 --- !u!1 &464795544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,8 +1293,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 880874299}
-  - {fileID: 1140054250}
   - {fileID: 2092990499}
+  - {fileID: 1140054250}
   - {fileID: 1861185835}
   m_Father: {fileID: 1564823668}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2037,7 +2043,7 @@ GameObject:
   - component: {fileID: 1230611599}
   - component: {fileID: 1230611601}
   m_Layer: 5
-  m_Name: ButtonPlay
+  m_Name: ButtonAgree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2089,7 +2095,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 382344712}
         m_TargetAssemblyTypeName: RKS.HadalZone.UI.FirstOpenSceneController, Assembly-CSharp
-        m_MethodName: GoToMenuScene
+        m_MethodName: AgreeButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3091,7 +3097,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.5
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -3363,7 +3369,7 @@ GameObject:
   - component: {fileID: 1786707366}
   - component: {fileID: 1786707365}
   m_Layer: 5
-  m_Name: TextInfo (TMP)
+  m_Name: TextProgress(TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3452,7 +3458,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <wave amp=3>0%
+  m_text: "<wave amp=3>\u041F\u041E\u0414\u0413\u041E\u0422\u041E\u0412\u041A\u0410</wave>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0cd81bc11029ef645b7b7d1099afe346, type: 2}
   m_sharedMaterial: {fileID: 2264415120077898921, guid: 0cd81bc11029ef645b7b7d1099afe346, type: 2}
@@ -4088,7 +4094,7 @@ GameObject:
   - component: {fileID: 2092990499}
   - component: {fileID: 2092990500}
   m_Layer: 5
-  m_Name: ShadersPreCompile
+  m_Name: ShadersWarmingUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
