@@ -374,6 +374,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.03
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -1557,10 +1564,10 @@ RectTransform:
   - {fileID: 1879370972}
   m_Father: {fileID: 677801038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 64.194}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 171.185, y: -162.62733}
+  m_SizeDelta: {x: 342.37, y: 64.194}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &375211526
 MonoBehaviour:
@@ -1657,6 +1664,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.155
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -1971,9 +1985,9 @@ RectTransform:
   - {fileID: 1146819207}
   m_Father: {fileID: 1800535343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -47.5}
   m_SizeDelta: {x: 342.367, y: 64.194}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &565151035
@@ -2079,6 +2093,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.155
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -2293,6 +2314,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.155
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -2408,6 +2436,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.03
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -3351,6 +3386,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 0
   m_WaveStrength: 0
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 0
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -3457,6 +3499,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.03
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -3611,6 +3660,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.03
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -3887,6 +3943,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.03
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -4019,6 +4082,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.03
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -4168,6 +4238,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 0
   m_WaveStrength: 0
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 0
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -4232,9 +4309,9 @@ RectTransform:
   - {fileID: 1952609453}
   m_Father: {fileID: 1800535343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -237.5}
   m_SizeDelta: {x: 342.367, y: 64.194}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1144437717
@@ -4332,6 +4409,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.155
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -4597,9 +4681,9 @@ RectTransform:
   - {fileID: 746633647}
   m_Father: {fileID: 1800535343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -332.5}
   m_SizeDelta: {x: 342.367, y: 64.194}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1162520185
@@ -4697,6 +4781,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.155
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -5244,6 +5335,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.155
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -5306,7 +5404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1337577774
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5359,7 +5457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1351912596
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5535,6 +5633,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.155
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -5618,10 +5723,10 @@ RectTransform:
   - {fileID: 1668360882}
   m_Father: {fileID: 677801038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 64.194}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 171.185, y: -261.06067}
+  m_SizeDelta: {x: 342.37, y: 64.194}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1373258543
 MonoBehaviour:
@@ -5718,6 +5823,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.155
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -6568,7 +6680,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1800535343
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7284,6 +7396,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.04
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -8458,9 +8577,9 @@ RectTransform:
   - {fileID: 1834100531}
   m_Father: {fileID: 1800535343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -142.5}
   m_SizeDelta: {x: 342.367, y: 64.194}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2101042675
@@ -8558,6 +8677,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.155
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1
@@ -8641,10 +8767,10 @@ RectTransform:
   - {fileID: 2090062557}
   m_Father: {fileID: 677801038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 64.194}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 171.185, y: -64.194}
+  m_SizeDelta: {x: 342.37, y: 64.194}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2136159562
 MonoBehaviour:
@@ -8741,6 +8867,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 10
   m_WaveStrength: 0.155
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 1
   m_WaveSpeed: 0.5
   m_WaveSpeedIgnoresTimeScale: 1

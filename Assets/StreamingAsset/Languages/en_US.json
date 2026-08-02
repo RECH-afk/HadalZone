@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "key": "npc_old_man_name",
+      "value": "Old Man"
+    },
+    {
+      "key": "npc_old_man_greeting",
+      "value": "Hello there, stranger. What brings you to these parts?"
+    },
+    {
+      "key": "npc_old_man_ask_help",
+      "value": "Could you help an old man? I lost my keys somewhere in the shed."
+    },
+    {
+      "key": "npc_old_man_yes",
+      "value": "Of course, I'll look for them."
+    },
+    {
+      "key": "npc_old_man_no",
+      "value": "Sorry, I'm busy right now."
+    },
+    {
+      "key": "npc_old_man_thanks",
+      "value": "Thank you kindly! Be careful out there."
+    },
+    {
+      "key": "npc_old_man_bye",
+      "value": "Suit yourself. Safe travels."
+    },
+    {
+      "key": "npc_scientist_name",
+      "value": "Scientist"
+    },
+    {
+      "key": "npc_scientist_greeting",
+      "value": "Ah, a living soul! I was starting to think I was alone here."
+    },
+    {
+      "key": "npc_scientist_info",
+      "value": "This facility was studying deep-sea anomalies. Something went wrong three days ago."
+    }
+  ]
+}

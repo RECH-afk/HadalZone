@@ -176,6 +176,70 @@ public class WavyImage : MaskableGraphic, ILayoutElement
 		set { if( m_WaveStrength != value ) { m_WaveStrength = value; SetVerticesDirty(); } }
 	}
 
+	[Tooltip( "How far the wave mesh extends beyond the sprite. The larger this value is, the further the waves spill out of the sprite on all sides." )]
+	[Range( 0f, 0.5f )]
+	[SerializeField]
+	private float m_WaveExtend = 0.15f;
+	public float waveExtend
+	{
+		get { return m_WaveExtend; }
+		set { if( m_WaveExtend != value ) { m_WaveExtend = value; SetVerticesDirty(); } }
+	}
+
+	[Tooltip( "Number of wave crests across the sprite. Higher values produce smaller and more frequent waves." )]
+	[Range( 0.5f, 8f )]
+	[SerializeField]
+	private float m_WaveCount = 2f;
+	public float waveCount
+	{
+		get { return m_WaveCount; }
+		set { if( m_WaveCount != value ) { m_WaveCount = value; SetVerticesDirty(); } }
+	}
+
+	[Tooltip( "How transparent the wave crests become as they extend beyond the sprite, so the image itself does not look enlarged." )]
+	[Range( 0f, 1f )]
+	[SerializeField]
+	private float m_WaveFade = 0.85f;
+	public float waveFade
+	{
+		get { return m_WaveFade; }
+		set { if( m_WaveFade != value ) { m_WaveFade = value; SetVerticesDirty(); } }
+	}
+
+	[Header( "Wave Sides" )]
+	[Tooltip( "Which sides of the sprite the wave effect is applied to." )]
+	[SerializeField]
+	private bool m_WaveTop = true;
+	public bool waveTop
+	{
+		get { return m_WaveTop; }
+		set { if( m_WaveTop != value ) { m_WaveTop = value; SetVerticesDirty(); } }
+	}
+
+	[SerializeField]
+	private bool m_WaveBottom = true;
+	public bool waveBottom
+	{
+		get { return m_WaveBottom; }
+		set { if( m_WaveBottom != value ) { m_WaveBottom = value; SetVerticesDirty(); } }
+	}
+
+	[SerializeField]
+	private bool m_WaveLeft = true;
+	public bool waveLeft
+	{
+		get { return m_WaveLeft; }
+		set { if( m_WaveLeft != value ) { m_WaveLeft = value; SetVerticesDirty(); } }
+	}
+
+	[SerializeField]
+	private bool m_WaveRight = true;
+	public bool waveRight
+	{
+		get { return m_WaveRight; }
+		set { if( m_WaveRight != value ) { m_WaveRight = value; SetVerticesDirty(); } }
+	}
+
 	[Tooltip( "As this value increases, the wave animation will become more 'chaotic' because vertices will start moving in more random directions." )]
 	[Range( 0f, 1f )]
 	[SerializeField]
@@ -263,9 +327,15 @@ public class WavyImage : MaskableGraphic, ILayoutElement
 			UnTrackImage();
 	}
 
+	private bool HasWaveEffect()
+	{
+		return m_WaveSegments > 0 && m_WaveExtend > 0f && m_WaveSpeed != 0f && m_WaveStrength != 0f
+			&& ( m_WaveTop || m_WaveBottom || m_WaveLeft || m_WaveRight );
+	}
+
 	private void Update()
 	{
-		if( m_WaveSegments > 0 && m_WaveSpeed != 0f && m_WaveStrength != 0f )
+		if( HasWaveEffect() )
 			SetVerticesDirty();
 	}
 
@@ -322,9 +392,9 @@ public class WavyImage : MaskableGraphic, ILayoutElement
 		}
 
 #if UNITY_EDITOR
-		if( ( !Application.isPlaying && !WavyImageEditor.previewInEditor ) || m_WaveSegments <= 0 )
+		if( ( !Application.isPlaying && !WavyImageEditor.previewInEditor ) || !HasWaveEffect() )
 #else
-		if( m_WaveSegments <= 0 )
+		if( !HasWaveEffect() )
 #endif
 		{
 			// Generate normal Image
@@ -342,12 +412,34 @@ public class WavyImage : MaskableGraphic, ILayoutElement
 			float invWaveSegments = 1f / m_WaveSegments;
 			waveAnimationTime += ( m_WaveSpeedIgnoresTimeScale ? Time.unscaledDeltaTime : Time.deltaTime ) * m_WaveSpeed;
 
-			float widthOffset = m_WaveStrength * width;
-			float heightOffset = m_WaveStrength * height;
-
 #if UNITY_EDITOR
 			waveDiversitySqrt = Mathf.Sqrt( m_WaveDiversity );
 #endif
+
+			float widthOffset = m_WaveStrength * width;
+			float heightOffset = m_WaveStrength * height;
+
+			// Extend the mesh bounds only on the sides that have the wave effect enabled
+			float extendX = width * m_WaveExtend;
+			float extendY = height * m_WaveExtend;
+			float extL = m_WaveLeft ? extendX : 0f;
+			float extR = m_WaveRight ? extendX : 0f;
+			float extB = m_WaveBottom ? extendY : 0f;
+			float extT = m_WaveTop ? extendY : 0f;
+
+			float minX = bottomLeftX - extL;
+			float minY = bottomLeftY - extB;
+			float spanX = width + extL + extR;
+			float spanY = height + extB + extT;
+
+			// Normalized bounds of the sprite area inside the mesh's [0..1] space
+			float leftEdge = extL / spanX;
+			float rightEdge = 1f - extR / spanX;
+			float bottomEdge = extB / spanY;
+			float topEdge = 1f - extT / spanY;
+
+			float k = Mathf.PI * 2f * m_WaveCount * waveDiversitySqrt;
+			float t = waveAnimationTime;
 
 			for( int i = 0; i <= m_WaveSegments; i++ )
 			{
@@ -356,12 +448,35 @@ public class WavyImage : MaskableGraphic, ILayoutElement
 					float normalizedX = j * invWaveSegments;
 					float normalizedY = i * invWaveSegments;
 
-					Vector2 _uv = new Vector2( uv.z * normalizedX + uv.x * ( 1f - normalizedX ), uv.w * normalizedY + uv.y * ( 1f - normalizedY ) );
-					Vector3 _position = new Vector3( bottomLeftX + width * normalizedX, bottomLeftY + height * normalizedY, 0f );
-					_position.x += ( Mathf.PerlinNoise( normalizedX * waveDiversitySqrt + waveAnimationTime, normalizedY * waveDiversitySqrt ) - 0.5f ) * widthOffset;
-					_position.y += ( Mathf.PerlinNoise( normalizedX * waveDiversitySqrt, normalizedY * waveDiversitySqrt + waveAnimationTime ) - 0.5f ) * heightOffset;
+					// How far this vertex is outside of the sprite, per side (0 inside, 1 at the outer mesh edge)
+					float outL = leftEdge > 0f && normalizedX < leftEdge ? ( leftEdge - normalizedX ) / leftEdge : 0f;
+					float outR = rightEdge < 1f && normalizedX > rightEdge ? ( normalizedX - rightEdge ) / ( 1f - rightEdge ) : 0f;
+					float outB = bottomEdge > 0f && normalizedY < bottomEdge ? ( bottomEdge - normalizedY ) / bottomEdge : 0f;
+					float outT = topEdge < 1f && normalizedY > topEdge ? ( normalizedY - topEdge ) / ( 1f - topEdge ) : 0f;
 
-					vh.AddVert( _position, color32, _uv );
+					float sideX = Mathf.Max( outL, outR );
+					float sideY = Mathf.Max( outB, outT );
+					float outMax = Mathf.Max( sideX, sideY );
+
+					// Clamp the UVs to the sprite area so the protruding band does not sample outside of the texture
+					float spriteX = leftEdge > 0f || rightEdge < 1f ? Mathf.Clamp01( ( normalizedX - leftEdge ) / ( rightEdge - leftEdge ) ) : normalizedX;
+					float spriteY = bottomEdge > 0f || topEdge < 1f ? Mathf.Clamp01( ( normalizedY - bottomEdge ) / ( topEdge - bottomEdge ) ) : normalizedY;
+					Vector2 _uv = new Vector2( uv.z * spriteX + uv.x * ( 1f - spriteX ), uv.w * spriteY + uv.y * ( 1f - spriteY ) );
+
+					// Realistic traveling waves: horizontal waves roll along the left/right sides, vertical waves along the top/bottom sides
+					float dxWave = Mathf.Sin( normalizedY * k - t ) + 0.5f * Mathf.Sin( normalizedX * k * 0.6f - t * 1.4f );
+					float dyWave = Mathf.Sin( normalizedX * k - t ) + 0.5f * Mathf.Sin( normalizedY * k * 0.6f - t * 1.4f );
+
+					Vector3 _position = new Vector3( minX + spanX * normalizedX, minY + spanY * normalizedY, 0f );
+					_position.x += dxWave * widthOffset * sideX * ( 1f + sideX );
+					_position.y += dyWave * heightOffset * sideY * ( 1f + sideY );
+
+					// Fade the protruding band so the image itself does not look enlarged
+					Color32 vertexColor = color32;
+					if( outMax > 0f )
+						vertexColor.a = ( byte )Mathf.Clamp( color32.a * ( 1f - outMax * m_WaveFade ), 0f, 255f );
+
+					vh.AddVert( _position, vertexColor, _uv );
 				}
 			}
 

@@ -1,16 +1,11 @@
-using UnityEngine;
+using EasyPeasyFirstPersonController;
 
-public class IInteractable : MonoBehaviour
+namespace RKS.HadalZone.Player
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public interface IInteractable
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        string Prompt { get; }
+        bool CanInteract { get; }
+        void OnInteract(PlayerController player);
     }
 }

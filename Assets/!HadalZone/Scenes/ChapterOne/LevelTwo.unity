@@ -40667,8 +40667,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0414\u041E \u041F\u041E\u0413\u0420\u0423\u0416\u0415\u041D\u0418\u042F
-    \n\u041E\u0421\u0422\u0410\u041B\u0421\u042F 1 \u0414\u0415\u041D\u042C"
+  m_text: "\u0421\u0415\u0413\u041E\u0414\u041D\u042F \u0423 \u0412\u0410\u0421 \u0414\u0415\u041D\u042C
+    \u0420\u041E\u0416\u0414\u0415\u041D\u0418\u042F!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0cd81bc11029ef645b7b7d1099afe346, type: 2}
   m_sharedMaterial: {fileID: 2264415120077898921, guid: 0cd81bc11029ef645b7b7d1099afe346, type: 2}
@@ -44618,9 +44618,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   uiSwayObject: {fileID: 10775985}
   targetCamera: {fileID: 63008692}
+  player: {fileID: 0}
   swayAmount: 50
   smoothTime: 5
   returnSpeed: 1
+  bobSpeed: 8
+  bobAmountX: 8
+  bobAmountY: 5
 --- !u!4 &646428895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6285606d920b76e42a5e2178cd294ba6, type: 3}
@@ -52184,21 +52188,33 @@ PrefabInstance:
       value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      propertyPath: zoomFov
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: canSlide
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: canSprint
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: sprintFov
       value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      propertyPath: walkSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: groundCheck
       value: 
       objectReference: {fileID: 1264544346}
+    - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      propertyPath: sprintSpeed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: cameraParent
       value: 
@@ -52209,15 +52225,19 @@ PrefabInstance:
       objectReference: {fileID: 63008692}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: bobbingAmount
-      value: 0.1
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: slideTiltAngle
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      propertyPath: strafeTiltAngle
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: landingDipAmount
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: mouseSensitivity
@@ -52229,7 +52249,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: idleBobbingAmount
-      value: 0.01
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      propertyPath: lookSwayMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      propertyPath: walkingBobbingSpeed
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 9156347144040445546, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -118834,6 +118862,13 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_WaveSegments: 1
   m_WaveStrength: -0.133
+  m_WaveExtend: 0.15
+  m_WaveCount: 2
+  m_WaveFade: 0.85
+  m_WaveTop: 1
+  m_WaveBottom: 1
+  m_WaveLeft: 1
+  m_WaveRight: 1
   m_WaveDiversity: 0
   m_WaveSpeed: 1.86
   m_WaveSpeedIgnoresTimeScale: 0

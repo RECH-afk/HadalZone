@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a070c515570f49499999ecd5c7d6416, type: 3}
+  m_Name: TESTNpc
+  m_EditorClassIdentifier: Assembly-CSharp::RKS.HadalZone.Core.Dialogue.DialogueData
+  nodes:
+  - textKey: "\u041F\u0440\u0438\u0432\u0435\u0442!"
+    actor: {fileID: 0}
+    charsPerSecond: 15
+    choices: []
+    voiceLine: 
+    onEnter: []
+    onExit: []
+    onDisplayComplete: []
+  - textKey: "\u041C\u0435\u043D\u044F \u0437\u043E\u0432\u0443\u0442 \u041C\u042D\u041B\u041B\u0421\u0422\u0420\u041E\u0419"
+    actor: {fileID: 0}
+    charsPerSecond: 15
+    choices: []
+    voiceLine: 
+    onEnter: []
+    onExit: []
+    onDisplayComplete: []
+  - textKey: "\u0418 \u042F \u0411\u041ESS \u0411\u0423\u0420\u041C\u0410\u041B\u0414\u042B"
+    actor: {fileID: 11400000, guid: 74a7a86ad8d42ec49a611b9f9508dc6b, type: 2}
+    charsPerSecond: 15
+    choices: []
+    voiceLine: 
+    onEnter: []
+    onExit: []
+    onDisplayComplete: []
+  - textKey: "\u0411\u0423\u0420\u041C\u0410\u041B\u0414\u0410!"
+    actor: {fileID: 11400000, guid: 74a7a86ad8d42ec49a611b9f9508dc6b, type: 2}
+    charsPerSecond: 15
+    choices: []
+    voiceLine: 
+    onEnter: []
+    onExit: []
+    onDisplayComplete: []
+  - textKey: "<palette><size=100>\u0411\u0423\u0420\u041C\u0410\u041B\u0414\u0410!"
+    actor: {fileID: 11400000, guid: 74a7a86ad8d42ec49a611b9f9508dc6b, type: 2}
+    charsPerSecond: 25
+    choices: []
+    voiceLine: 
+    onEnter: []
+    onExit: []
+    onDisplayComplete: []
+  - textKey: "<shake><size=130>\u0411\u0423\u0420\u041C\u0410\u041B\u0414\u0410!"
+    actor: {fileID: 11400000, guid: 74a7a86ad8d42ec49a611b9f9508dc6b, type: 2}
+    charsPerSecond: 25
+    choices: []
+    voiceLine: 
+    onEnter: []
+    onExit: []
+    onDisplayComplete: []
+  - textKey: "<funky><size=160>\u0411\u0423\u0420\u041C\u0410\u041B\u0414\u0410!"
+    actor: {fileID: 11400000, guid: 74a7a86ad8d42ec49a611b9f9508dc6b, type: 2}
+    charsPerSecond: 20
+    choices: []
+    voiceLine: 
+    onEnter: []
+    onExit: []
+    onDisplayComplete: []
+  - textKey: "<swing><size=230>\u0411\u0423\u0420\u041C\u0410\u041B\u0414\u0410!"
+    actor: {fileID: 11400000, guid: 74a7a86ad8d42ec49a611b9f9508dc6b, type: 2}
+    charsPerSecond: 25
+    choices: []
+    voiceLine: 
+    onEnter: []
+    onExit: []
+    onDisplayComplete: []
+  pausePlayerOnDialogue: 1
+  onStarted: []
+  onEnded: []

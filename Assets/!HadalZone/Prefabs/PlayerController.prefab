@@ -243,6 +243,7 @@ GameObject:
   - component: {fileID: 9156347144040445546}
   - component: {fileID: 9156347144040445545}
   - component: {fileID: 9156347144040445544}
+  - component: {fileID: 4873288829932432365}
   m_Layer: 2
   m_Name: PlayerController
   m_TagString: Player
@@ -317,17 +318,29 @@ MonoBehaviour:
   slideTiltAngle: 7
   jumpSpeed: 3
   gravity: 9.81
-  coyoteTimeEnabled: 1
   coyoteTimeDuration: 0.2
   normalFov: 60
   sprintFov: 70
   fovChangeSpeed: 5
-  walkingBobbingSpeed: 10
+  zoomKey: 324
+  zoomFov: 40
+  zoomSensitivityMultiplier: 0.5
   bobbingAmount: 0.05
+  walkingBobbingSpeed: 10
+  idleBobbingAmount: 0.01
+  idleBobbingSpeed: 2
+  bobPitchAmount: 0.5
+  bobRollAmount: 0.5
+  strafeTiltAngle: 1.5
+  lookSwayMultiplier: 1.5
+  landingDipAmount: 0.15
+  jumpDipAmount: 0.1
   canSlide: 1
   canJump: 1
   canSprint: 1
   canCrouch: 1
+  canZoom: 1
+  coyoteTimeEnabled: 1
   ceilingCheckQueryTriggerInteraction: 1
   groundCheckQueryTriggerInteraction: 1
   groundCheck: {fileID: 9156347144365898843}
@@ -340,6 +353,31 @@ MonoBehaviour:
   isSprinting: 0
   isCrouching: 0
   isSliding: 0
+  isZooming: 0
+--- !u!114 &4873288829932432365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9156347144040445547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f4b2bd4873cd440a57c43f3e26e9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RKS.HadalZone.Player.InteractionManager
+  maxDistance: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  interactKey: 101
+  playerCamera: {fileID: 0}
+  onInteractableFound:
+    m_PersistentCalls:
+      m_Calls: []
+  onInteractableLost:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9156347144365898844
 GameObject:
   m_ObjectHideFlags: 0

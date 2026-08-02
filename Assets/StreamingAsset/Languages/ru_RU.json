@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "key": "npc_old_man_name",
+      "value": "Старик"
+    },
+    {
+      "key": "npc_old_man_greeting",
+      "value": "Здравствуй, странник. Что привело тебя в эти края?"
+    },
+    {
+      "key": "npc_old_man_ask_help",
+      "value": "Не поможешь старику? Я потерял ключи где-то в сарае."
+    },
+    {
+      "key": "npc_old_man_yes",
+      "value": "Конечно, я поищу их."
+    },
+    {
+      "key": "npc_old_man_no",
+      "value": "Извини, я сейчас занят."
+    },
+    {
+      "key": "npc_old_man_thanks",
+      "value": "Спасибо тебе! Будь осторожен там."
+    },
+    {
+      "key": "npc_old_man_bye",
+      "value": "Как знаешь. Счастливого пути."
+    },
+    {
+      "key": "npc_scientist_name",
+      "value": "Учёный"
+    },
+    {
+      "key": "npc_scientist_greeting",
+      "value": "Ах, живая душа! Я уж думал, что я здесь один."
+    },
+    {
+      "key": "npc_scientist_info",
+      "value": "Этот комплекс изучал глубоководные аномалии. Что-то пошло не так три дня назад."
+    }
+  ]
+}

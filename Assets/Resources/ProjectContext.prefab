@@ -74,8 +74,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66375ef5ab3a6cb45a93abab35b3daea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RKS.HadalZone.Core.Installers.ProjectInstaller
-  localizationManagerPrefab: {fileID: 8472490302348360525, guid: 7332b50f4f52497479a057c352e58e69, type: 3}
-  audioManagerPrefab: {fileID: 7871833642971240622, guid: 2a277685d90eca040aad3e62b29d40b1, type: 3}
-  discordControllerPrefab: {fileID: 118322999939580689, guid: 70544e5b69ab06141b8696217734f5be, type: 3}
-  saveManagerPrefab: {fileID: 4594893543064269524, guid: e3c2be45e1389244c826b3fe4cb0cc69, type: 3}
-  transitionServicePrefab: {fileID: 2916447733952838655, guid: 7a1ee29e668c7b444a6873473bdb9060, type: 3}
+  localizationPrefab: {fileID: 8472490302348360525, guid: 7332b50f4f52497479a057c352e58e69, type: 3}
+  audioPrefab: {fileID: 7871833642971240622, guid: 2a277685d90eca040aad3e62b29d40b1, type: 3}
+  discordPrefab: {fileID: 118322999939580689, guid: 70544e5b69ab06141b8696217734f5be, type: 3}
+  savePrefab: {fileID: 4594893543064269524, guid: e3c2be45e1389244c826b3fe4cb0cc69, type: 3}
+  transitionPrefab: {fileID: 2916447733952838655, guid: 7a1ee29e668c7b444a6873473bdb9060, type: 3}
+  dialoguePrefab: {fileID: 9018711177283460049, guid: f955f3cce45f04e4bbbc7f507c7ac305, type: 3}

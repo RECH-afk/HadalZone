@@ -1,3 +1,4 @@
+using RKS.HadalZone.Core.Dialogue;
 using RKS.HadalZone.Core.Managers;
 using UnityEngine;
 using Zenject;
@@ -7,22 +8,21 @@ namespace RKS.HadalZone.Core.Installers
     sealed class ProjectInstaller : MonoInstaller
     {
         [Header("Managers")]
-        [SerializeField] private LocalizationManager localizationManagerPrefab;
-        [SerializeField] private AudioManager audioManagerPrefab;
-        [SerializeField] private DiscordManager discordControllerPrefab;
-        [SerializeField] private SaveManager saveManagerPrefab;
-        [SerializeField] private TransitionManager transitionServicePrefab;
+        [SerializeField] private LocalizationManager localizationPrefab;
+        [SerializeField] private AudioManager audioPrefab;
+        [SerializeField] private DiscordManager discordPrefab;
+        [SerializeField] private SaveManager savePrefab;
+        [SerializeField] private TransitionManager transitionPrefab;
+        [SerializeField] private DialogueManager dialoguePrefab;
 
         public override void InstallBindings()
         {
-            Debug.Log("[ProjectInstaller] Installing global managers...");
-
-            Container.Bind<LocalizationManager>().FromComponentInNewPrefab(localizationManagerPrefab).AsSingle().NonLazy();
-            Container.Bind<AudioManager>().FromComponentInNewPrefab(audioManagerPrefab).AsSingle().NonLazy();
-            Container.Bind<DiscordManager>().FromComponentInNewPrefab(discordControllerPrefab).AsSingle().NonLazy();
-            Container.Bind<SaveManager>().FromComponentInNewPrefab(saveManagerPrefab).AsSingle().NonLazy();
-            Container.Bind<TransitionManager>().FromComponentInNewPrefab(transitionServicePrefab).AsSingle().NonLazy();
+            Container.Bind<LocalizationManager>().FromComponentInNewPrefab(localizationPrefab).AsSingle().NonLazy();
+            Container.Bind<AudioManager>().FromComponentInNewPrefab(audioPrefab).AsSingle().NonLazy();
+            Container.Bind<DiscordManager>().FromComponentInNewPrefab(discordPrefab).AsSingle().NonLazy();
+            Container.Bind<SaveManager>().FromComponentInNewPrefab(savePrefab).AsSingle().NonLazy();
+            Container.Bind<TransitionManager>().FromComponentInNewPrefab(transitionPrefab).AsSingle().NonLazy();
+            Container.Bind<DialogueManager>().FromComponentInNewPrefab(dialoguePrefab).AsSingle().NonLazy();
         }
-
     }
 }
