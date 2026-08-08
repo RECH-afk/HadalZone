@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 using RKS.HadalZone.Core.Managers;
+
 namespace RKS.HadalZone.Core
 {
     public abstract class RKSBehaviour : MonoBehaviour, IDisposable

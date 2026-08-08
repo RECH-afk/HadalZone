@@ -1,13 +1,13 @@
 using EasyPeasyFirstPersonController;
+using RKS.HadalZone.Core;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 namespace RKS.HadalZone.Player
 {
-    public class InteractionManager : MonoBehaviour
+    public class InteractionManager : RKSBehaviour
     {
-        [Header("References")]
-        [SerializeField] private Transform playerCamera;
         [SerializeField] private float maxDistance = 3f;
 
         [Header("Events")]
@@ -16,22 +16,21 @@ namespace RKS.HadalZone.Player
 
         public IInteractable Current { get; private set; }
 
-        private PlayerController _player;
+        [Inject] private PlayerController _playerController;
+        private Transform _playerCamera;
 
-        private void Start()
+        protected override void OnInjected()
         {
-            _player = FindObjectOfType<PlayerController>();
-            if (playerCamera == null && _player != null)
-                playerCamera = _player.playerCamera;
+            _playerCamera = _playerController.GetComponentInChildren<Camera>().transform;
         }
 
-        private void Update()
+        protected override void Update()
         {
-            if (playerCamera == null) return;
+            if (_playerCamera == null) return;
 
             RaycastHit hit;
             bool hitSomething = Physics.Raycast(
-                playerCamera.position, playerCamera.forward,
+                _playerCamera.position, _playerCamera.forward,
                 out hit, maxDistance);
 
             IInteractable interactable = null;
@@ -48,8 +47,8 @@ namespace RKS.HadalZone.Player
 
                 if (Input.GetButtonDown("Submit") || Input.GetKeyDown(KeyCode.E))
                 {
-                    if (_player != null)
-                        interactable.OnInteract(_player);
+                    if (_playerController != null)
+                        interactable.OnInteract(_playerController);
                 }
             }
             else if (Current != null)

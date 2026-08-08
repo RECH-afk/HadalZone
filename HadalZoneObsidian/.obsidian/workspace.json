@@ -20,28 +20,37 @@
               "icon": "lucide-file",
               "title": "База знаний Hadal Zone"
             }
-          }
-        ]
-      },
-      {
-        "id": "acfeff6a92d1d162",
-        "type": "tabs",
-        "children": [
+          },
           {
-            "id": "5501f25b50615c9c",
+            "id": "ad1ba1586c1330a7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "База знаний Hadal Zone.md",
+                "file": "LevelOne.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "База знаний Hadal Zone"
+              "title": "LevelOne"
+            }
+          },
+          {
+            "id": "b6a3a35f31195269",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "LevelTwo.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "LevelTwo"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -205,8 +214,10 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "146341678b1ee966",
+  "active": "b6a3a35f31195269",
   "lastOpenFiles": [
-    "База знаний Hadal Zone.md"
+    "LevelOne.md",
+    "База знаний Hadal Zone.md",
+    "LevelTwo.md"
   ]
 }

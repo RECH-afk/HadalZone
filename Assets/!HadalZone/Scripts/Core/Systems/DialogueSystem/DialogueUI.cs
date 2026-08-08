@@ -11,45 +11,51 @@ namespace RKS.HadalZone.Core.Dialogue
 {
     public class DialogueUI : RKSBehaviour
     {
-        [Header("Panels")]
         [SerializeField] private CanvasGroup dialogueGroup;
-        [SerializeField] private GameObject choiceRoot;
-
-        [Header("Speaker")]
         [SerializeField] private CanvasGroup speakerGroup;
         [SerializeField] private TMP_Text speakerLabel;
-
-        [Header("Text")]
         [SerializeField] private TMP_Text content;
-
-        [Header("Continue Indicator")]
-        [SerializeField] private CanvasGroup continueIndicator;
-
-        [Header("Choice")]
+        [SerializeField] private TMP_Text continueIndicator;
         [SerializeField] private RectTransform choicePrefab;
-        [SerializeField] private HorizontalLayoutGroup choiceLayout;
+        [SerializeField] private GameObject choiceRoot;
+        [HideInInspector] private HorizontalLayoutGroup choiceLayout;
 
         [Header("Animation")]
         [SerializeField] private float fadeTime = 0.2f;
         [SerializeField] private float slideDist = 50f;
+        [SerializeField, Min(0f)] private float choiceStagger = 0.05f;
+
+        [Header("Input")]
+        [SerializeField, Min(0f)] private float startInputLock = 0.12f;
+        [SerializeField, Min(0f)] private float advanceInputLock = 0.12f;
+        [SerializeField, Min(0f)] private float nodeChangeInputLock = 0.04f;
 
         [Inject] private DialogueManager _mgr;
 
         private Coroutine _typing;
         private bool _isTyping;
+        private bool _choicesVisible;
         private bool _choiceClickedThisFrame;
-        private Tween _continueBlink;
+
+        private Node _currentNode;
+        private string _lastSpeakerKey;
+        private int _totalChars;
+
+        private float _nextAllowedInputTime;
+        private bool _waitForSubmitRelease;
 
         private Vector2 _dialogueShown;
         private Vector2 _dialogueHidden;
         private Vector2 _speakerShown;
         private Vector2 _speakerHidden;
 
+        private float AnimTime => fadeTime <= 0f ? 0.01f : fadeTime;
+
         protected override void OnReady()
         {
             if (_mgr == null)
             {
-                Debug.LogError("[DialogueUI] DialogueManager не найден.");
+                Debug.LogError("[DialogueUI] DialogueManager not found.");
                 return;
             }
 
@@ -60,15 +66,45 @@ namespace RKS.HadalZone.Core.Dialogue
             SetupPanel(dialogueGroup, out _dialogueShown, out _dialogueHidden);
             SetupPanel(speakerGroup, out _speakerShown, out _speakerHidden);
 
+            if (choiceRoot != null)
+            {
+                choiceLayout = choiceRoot.GetComponent<HorizontalLayoutGroup>();
+
+                if (choiceLayout == null)
+                {
+                    var anyLayout = choiceRoot.GetComponent<LayoutGroup>();
+                    if (anyLayout == null)
+                    {
+                        choiceLayout = choiceRoot.AddComponent<HorizontalLayoutGroup>();
+                        choiceLayout.childAlignment = TextAnchor.MiddleCenter;
+                        choiceLayout.spacing = 12f;
+                    }
+                }
+
+                if (choiceLayout != null)
+                {
+                    choiceLayout.childForceExpandWidth = false;
+                    choiceLayout.childForceExpandHeight = false;
+                }
+
+                var fitter = choiceRoot.GetComponent<ContentSizeFitter>();
+                if (fitter == null)
+                    fitter = choiceRoot.AddComponent<ContentSizeFitter>();
+
+                fitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+                fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+                choiceRoot.SetActive(false);
+            }
+
             if (content != null)
             {
                 content.textWrappingMode = TextWrappingModes.Normal;
                 content.text = "";
+                content.maxVisibleCharacters = 0;
             }
 
-            if (choiceRoot != null) choiceRoot.SetActive(false);
-
-            SetHidden(continueIndicator);
+            HideContinue();
         }
 
         private void SetupPanel(CanvasGroup group, out Vector2 shown, out Vector2 hidden)
@@ -79,58 +115,89 @@ namespace RKS.HadalZone.Core.Dialogue
             if (group == null) return;
 
             var rt = group.GetComponent<RectTransform>();
+            if (rt == null) return;
+
             shown = rt.anchoredPosition;
             hidden = shown + Vector2.down * slideDist;
+
             rt.anchoredPosition = hidden;
+            rt.localScale = Vector3.one;
             group.alpha = 0f;
             group.gameObject.SetActive(false);
         }
 
         private void OnStarted(DialogueData data)
         {
+            _currentNode = null;
+            _choicesVisible = false;
+            _lastSpeakerKey = null;
+
+            LockInput(Mathf.Max(startInputLock, AnimTime * 0.75f));
+            _waitForSubmitRelease = true;
+
             ShowPanel(dialogueGroup, _dialogueHidden, _dialogueShown);
         }
 
         private void OnEnded()
         {
-            HidePanel(dialogueGroup, _dialogueHidden, () =>
-            {
-                dialogueGroup.gameObject.SetActive(false);
-                ClearChoices();
-            });
+            StopTyping();
 
+            _currentNode = null;
+            _choicesVisible = false;
+            _lastSpeakerKey = null;
+
+            LockInput(Mathf.Max(advanceInputLock, AnimTime * 0.75f));
+            _waitForSubmitRelease = true;
+
+            HidePanel(dialogueGroup, _dialogueHidden, ClearChoices);
             HidePanel(speakerGroup, _speakerHidden, () =>
             {
-                speakerGroup.gameObject.SetActive(false);
                 if (speakerLabel != null) speakerLabel.text = "";
             });
 
-            SetHidden(continueIndicator);
-            KillBlink();
+            HideContinue();
         }
 
         private void OnNode(Node node)
         {
-            if (_typing != null) StopCoroutine(_typing);
-            KillBlink();
+            if (node == null) return;
+
+            StopTyping();
+            HideContinue();
+            ClearChoices();
+
+            _currentNode = node;
+            _choicesVisible = false;
+            LockInput(nodeChangeInputLock);
 
             ShowSpeaker(node);
 
-            var text = Localization != null && LocalizationManager.isReady
+            string text = Localization != null && LocalizationManager.isReady
                 ? Localization.GetLocalizedValue(node.textKey)
                 : node.textKey;
 
-            _choiceClickedThisFrame = false;
-            SetHidden(continueIndicator);
+            if (string.IsNullOrEmpty(text))
+                text = string.Empty;
 
-            content.text = text;
-            content.maxVisibleCharacters = 0;
-            content.pageToDisplay = 1;
-            content.firstVisibleCharacter = 0;
+            if (content != null)
+            {
+                content.text = text;
+                content.maxVisibleCharacters = int.MaxValue;
+                content.pageToDisplay = 1;
+                content.firstVisibleCharacter = 0;
+                content.ForceMeshUpdate(true, true);
 
-            int cps = ResolveCps(node);
-            _typing = StartCoroutine(TypeText(text, cps));
-            BuildChoices(node);
+                _totalChars = content.textInfo != null ? content.textInfo.characterCount : text.Length;
+                content.maxVisibleCharacters = 0;
+
+                int cps = ResolveCps(node);
+                _typing = StartCoroutine(TypeText(cps));
+            }
+            else
+            {
+                _totalChars = 0;
+                OnTypingComplete();
+            }
 
             if (!string.IsNullOrEmpty(node.voiceLine) && Audio != null)
                 Audio.PlayOneShot(node.voiceLine);
@@ -140,6 +207,7 @@ namespace RKS.HadalZone.Core.Dialogue
         {
             if (node.actor != null && node.actor.defaultCharsPerSecond >= 0)
                 return node.actor.defaultCharsPerSecond;
+
             return node.charsPerSecond;
         }
 
@@ -147,41 +215,53 @@ namespace RKS.HadalZone.Core.Dialogue
         {
             if (speakerGroup == null) return;
 
-            bool hasActor = node.actor != null;
-
-            if (hasActor)
+            if (node.actor == null)
             {
-                var name = Localization != null && LocalizationManager.isReady
-                    ? Localization.GetLocalizedValue(node.actor.displayNameKey)
-                    : node.actor.displayNameKey;
+                _lastSpeakerKey = null;
 
-                speakerGroup.gameObject.SetActive(true);
-                speakerGroup.DOKill();
-                var rt = speakerGroup.GetComponent<RectTransform>();
-                rt.anchoredPosition = _speakerHidden;
-                speakerGroup.alpha = 0f;
-                speakerGroup.DOFade(1f, fadeTime);
-                rt.DOAnchorPos(_speakerShown, fadeTime).SetEase(Ease.OutBack);
-
-                if (speakerLabel != null)
-                    speakerLabel.text = name;
-            }
-            else
-            {
-                HidePanel(speakerGroup, _speakerHidden, () =>
+                if (speakerGroup.gameObject.activeSelf)
                 {
-                    speakerGroup.gameObject.SetActive(false);
-                    if (speakerLabel != null) speakerLabel.text = "";
-                });
+                    HidePanel(speakerGroup, _speakerHidden, () =>
+                    {
+                        if (speakerLabel != null) speakerLabel.text = "";
+                    });
+                }
+
+                return;
             }
+
+            string key = string.IsNullOrEmpty(node.actor.displayNameKey)
+                ? string.Empty
+                : node.actor.displayNameKey;
+
+            string speakerName = Localization != null && LocalizationManager.isReady
+                ? Localization.GetLocalizedValue(key)
+                : key;
+
+            if (speakerLabel != null)
+                speakerLabel.text = speakerName;
+
+            if (speakerGroup.gameObject.activeSelf && _lastSpeakerKey == key && speakerGroup.alpha > 0.9f)
+                return;
+
+            _lastSpeakerKey = key;
+            ShowPanel(speakerGroup, _speakerHidden, _speakerShown);
         }
 
-        private IEnumerator TypeText(string text, int cps)
+        private IEnumerator TypeText(int cps)
         {
             _isTyping = true;
-            int total = text.Length;
 
-            if (cps <= 0 || total == 0)
+            if (content == null)
+            {
+                _isTyping = false;
+                OnTypingComplete();
+                yield break;
+            }
+
+            int total = _totalChars;
+
+            if (cps <= 0 || total <= 0)
             {
                 content.maxVisibleCharacters = total;
                 _isTyping = false;
@@ -189,37 +269,49 @@ namespace RKS.HadalZone.Core.Dialogue
                 yield break;
             }
 
-            float interval = 1f / cps;
-
-            // При 1 символ/сек пауза между символами ≈ 1000 мс.
-            // Если total мал, текст не должен появляться мгновенно.
+            float interval = 1f / Mathf.Max(1, cps);
             int visible = 0;
             float timer = 0f;
 
             while (visible < total)
             {
-                timer += Time.deltaTime;
+                timer += Time.unscaledDeltaTime;
 
                 while (timer >= interval && visible < total)
                 {
                     visible++;
-                    content.maxVisibleCharacters = visible;
                     timer -= interval;
                 }
 
+                content.maxVisibleCharacters = visible;
                 yield return null;
             }
 
+            content.maxVisibleCharacters = total;
             _isTyping = false;
             OnTypingComplete();
         }
 
+        private void StopTyping()
+        {
+            if (_typing != null)
+            {
+                StopCoroutine(_typing);
+                _typing = null;
+            }
+
+            _isTyping = false;
+        }
+
         private void CompleteTyping()
         {
-            if (_typing != null) StopCoroutine(_typing);
+            if (_typing == null && !_isTyping) return;
 
-            content.maxVisibleCharacters = int.MaxValue;
-            _isTyping = false;
+            StopTyping();
+
+            if (content != null)
+                content.maxVisibleCharacters = _totalChars;
+
             OnTypingComplete();
         }
 
@@ -230,10 +322,12 @@ namespace RKS.HadalZone.Core.Dialogue
             var node = _mgr.GetCurrentNode();
             if (node == null) return;
 
+            _currentNode = node;
             _mgr.NotifyDisplayComplete();
 
-            bool hasChoices = node.choices != null && node.choices.Length > 0;
-            if (!hasChoices)
+            if (HasChoices(node))
+                BuildChoices(node);
+            else
                 TryShowContinue();
         }
 
@@ -241,69 +335,205 @@ namespace RKS.HadalZone.Core.Dialogue
         {
             if (continueIndicator == null) return;
 
-            continueIndicator.gameObject.SetActive(true);
-            continueIndicator.alpha = 1f;
+            DOTween.Kill(continueIndicator);
 
-            _continueBlink = continueIndicator.DOFade(0.2f, 0.6f)
-                .SetLoops(-1, LoopType.Yoyo)
-                .SetEase(Ease.InOutSine);
+            continueIndicator.gameObject.SetActive(true);
+            continueIndicator.alpha = 0f;
+
+            var rt = continueIndicator.rectTransform;
+
+            rt.localScale = Vector3.one * 0.8f;
+            rt.localRotation = Quaternion.identity;
+
+            Vector2 startPos = rt.anchoredPosition;
+
+            // Тряска на всё время, пока continue видим
+            var shake = rt.DOShakeAnchorPos(0.35f, 3f, 12, 90f, false, false)
+                .SetTarget(continueIndicator)
+                .SetUpdate(true)
+                .SetLoops(-1, LoopType.Restart);
+
+            shake.OnKill(() =>
+            {
+                if (rt != null)
+                    rt.anchoredPosition = startPos;
+            });
+
+            var seq = DOTween.Sequence()
+                .SetTarget(continueIndicator)
+                .SetUpdate(true);
+
+            // Появление
+            seq.Join(continueIndicator.DOFade(1f, 0.14f).SetEase(Ease.OutSine));
+
+            // Лёгкое увеличение
+            seq.Join(rt.DOScale(0.92f, 0.18f).SetEase(Ease.OutCubic));
+
+            // Вращение на 360 градусов
+            seq.Join(
+                rt.DOLocalRotate(Vector3.forward * 360f, 0.45f, RotateMode.FastBeyond360)
+                  .SetEase(Ease.OutCubic)
+            );
+
+            // Мягкая фиксация размера
+            seq.Append(rt.DOScale(0.88f, 0.16f).SetEase(Ease.InOutSine));
+
+            seq.OnComplete(() =>
+            {
+                rt.localRotation = Quaternion.identity;
+
+                // Текущая пульсация
+                rt.DOScale(0.93f, 0.55f)
+                    .SetTarget(continueIndicator)
+                    .SetUpdate(true)
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetEase(Ease.InOutSine);
+
+                continueIndicator.DOFade(0.55f, 0.55f)
+                    .SetTarget(continueIndicator)
+                    .SetUpdate(true)
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetEase(Ease.InOutSine);
+            });
+
+            seq.OnKill(() =>
+            {
+                if (rt != null)
+                    rt.anchoredPosition = startPos;
+            });
+        }
+
+        private void HideContinue()
+        {
+            if (continueIndicator == null) return;
+
+            DOTween.Kill(continueIndicator);
+            continueIndicator.alpha = 0f;
+            continueIndicator.gameObject.SetActive(false);
         }
 
         private void BuildChoices(Node node)
         {
             ClearChoices();
 
-            if (node.choices == null || node.choices.Length == 0)
+            if (node.choices == null || node.choices.Length == 0 || choiceRoot == null || choicePrefab == null)
             {
-                if (choiceRoot != null) choiceRoot.SetActive(false);
+                if (choiceRoot != null)
+                    choiceRoot.SetActive(false);
                 return;
             }
 
-            if (choiceRoot != null) choiceRoot.SetActive(true);
+            _choicesVisible = true;
+            choiceRoot.SetActive(true);
 
-            var fitter = choiceRoot.GetComponent<ContentSizeFitter>();
-            if (fitter == null)
-                fitter = choiceRoot.AddComponent<ContentSizeFitter>();
-            fitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-            if (choiceLayout != null)
-                choiceLayout.childForceExpandWidth = false;
+            Transform parent = choiceLayout != null ? choiceLayout.transform : choiceRoot.transform;
 
             for (int i = 0; i < node.choices.Length; i++)
             {
-                var btn = Instantiate(choicePrefab, choiceLayout.transform);
-                var btnText = btn.GetComponentInChildren<TMP_Text>();
+                var btn = Instantiate(choicePrefab, parent);
 
-                var label = Localization != null && LocalizationManager.isReady
-                    ? Localization.GetLocalizedValue(node.choices[i].textKey)
-                    : node.choices[i].textKey;
-                btnText.text = label;
+                var button = btn.GetComponent<Button>();
+                if (button == null)
+                    button = btn.gameObject.AddComponent<Button>();
 
-                btnText.ForceMeshUpdate();
-                float w = btnText.preferredWidth + 30f;
+                var label = btn.GetComponentInChildren<TMP_Text>(true);
+                var choice = node.choices[i];
 
-                var le = btn.GetComponent<LayoutElement>();
-                if (le == null) le = btn.gameObject.AddComponent<LayoutElement>();
-                le.preferredWidth = w;
+                string choiceText = Localization != null && LocalizationManager.isReady
+                    ? Localization.GetLocalizedValue(choice.textKey)
+                    : choice.textKey;
+
+                if (string.IsNullOrEmpty(choiceText))
+                    choiceText = string.Empty;
+
+                if (label != null)
+                {
+                    label.text = choiceText;
+                    label.ForceMeshUpdate();
+
+                    var le = btn.GetComponent<LayoutElement>();
+                    if (le == null)
+                        le = btn.gameObject.AddComponent<LayoutElement>();
+
+                    le.preferredWidth = label.preferredWidth + 30f;
+                }
+
+                var cg = btn.GetComponent<CanvasGroup>();
+                if (cg == null)
+                    cg = btn.gameObject.AddComponent<CanvasGroup>();
+
+                cg.alpha = 0f;
+                cg.blocksRaycasts = false;
+                button.interactable = false;
+
+                // Более спокойный старт
+                btn.localScale = Vector3.one * 0.94f;
 
                 int idx = i;
-                btn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() =>
+                Button capturedButton = button;
+
+                capturedButton.onClick.AddListener(() =>
                 {
+                    capturedButton.interactable = false;
                     _choiceClickedThisFrame = true;
-                    _mgr.SelectChoice(idx);
+                    LockInput(advanceInputLock);
+                    _waitForSubmitRelease = true;
+
+                    if (_mgr != null)
+                        _mgr.SelectChoice(idx);
                 });
 
-                btn.localScale = Vector3.zero;
-                btn.DOScale(1f, 0.2f).SetDelay(i * 0.08f).SetEase(Ease.OutBack);
+                float delay = i * Mathf.Max(0.02f, choiceStagger);
+
+                float fadeDur = Mathf.Max(0.06f, AnimTime * 0.4f);
+                float attackDur = Mathf.Max(0.12f, AnimTime * 0.6f);
+                float settleDur = Mathf.Max(0.1f, AnimTime * 0.5f);
+
+                var seq = DOTween.Sequence()
+                    .SetTarget(btn.gameObject)
+                    .SetUpdate(true);
+
+                seq.Insert(delay, cg.DOFade(1f, fadeDur).SetEase(Ease.OutSine));
+
+                // Лёгкий, аккуратный pop
+                seq.Insert(delay, btn.DOScale(1.025f, attackDur).SetEase(Ease.OutCubic));
+
+                // Плавный возврат
+                seq.Insert(delay + attackDur, btn.DOScale(1f, settleDur).SetEase(Ease.InOutSine));
+
+                seq.OnComplete(() =>
+                {
+                    cg.blocksRaycasts = true;
+                    capturedButton.interactable = true;
+                });
             }
+
+            var rootRt = choiceRoot.GetComponent<RectTransform>();
+            if (rootRt != null)
+                LayoutRebuilder.ForceRebuildLayoutImmediate(rootRt);
         }
 
         private void ClearChoices()
         {
-            if (choiceLayout == null) return;
-            for (int i = choiceLayout.transform.childCount - 1; i >= 0; i--)
-                Destroy(choiceLayout.transform.GetChild(i).gameObject);
+            _choicesVisible = false;
+
+            if (choiceRoot == null) return;
+
+            for (int i = choiceRoot.transform.childCount - 1; i >= 0; i--)
+            {
+                var child = choiceRoot.transform.GetChild(i);
+
+                DOTween.Kill(child.gameObject);
+                DOTween.Kill(child);
+
+                var cg = child.GetComponent<CanvasGroup>();
+                if (cg != null)
+                    DOTween.Kill(cg);
+
+                Destroy(child.gameObject);
+            }
+
+            choiceRoot.SetActive(false);
         }
 
         protected override void Update()
@@ -316,20 +546,59 @@ namespace RKS.HadalZone.Core.Dialogue
                 return;
             }
 
+            if (!CanReceiveInput()) return;
+
             if (_isTyping)
             {
                 if (Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(0))
+                {
+                    LockInput(0.02f);
                     CompleteTyping();
-            }
-            else
-            {
-                bool advance = Input.GetButtonDown("Submit");
-                if (!advance && Input.GetMouseButtonDown(0) && !IsPointerOverUI())
-                    advance = true;
+                }
 
-                if (advance)
-                    _mgr.NextNode();
+                return;
             }
+
+            if (_choicesVisible || HasChoices(_currentNode))
+                return;
+
+            bool advance = Input.GetButtonDown("Submit");
+            if (!advance && Input.GetMouseButtonDown(0) && !IsPointerOverUI())
+                advance = true;
+
+            if (advance)
+            {
+                LockInput(advanceInputLock);
+                _waitForSubmitRelease = true;
+                _mgr.NextNode();
+            }
+        }
+
+        private bool CanReceiveInput()
+        {
+            if (Time.unscaledTime < _nextAllowedInputTime)
+                return false;
+
+            if (_waitForSubmitRelease)
+            {
+                if (!Input.GetButton("Submit"))
+                    _waitForSubmitRelease = false;
+                else
+                    return false;
+            }
+
+            return true;
+        }
+
+        private void LockInput(float duration)
+        {
+            if (duration <= 0f) return;
+            _nextAllowedInputTime = Mathf.Max(_nextAllowedInputTime, Time.unscaledTime + duration);
+        }
+
+        private static bool HasChoices(Node node)
+        {
+            return node != null && node.choices != null && node.choices.Length > 0;
         }
 
         private static bool IsPointerOverUI()
@@ -340,40 +609,88 @@ namespace RKS.HadalZone.Core.Dialogue
         private void ShowPanel(CanvasGroup group, Vector2 from, Vector2 to)
         {
             if (group == null) return;
+
+            var rt = group.GetComponent<RectTransform>();
+            if (rt == null) return;
+
+            DOTween.Kill(group);
+
             group.gameObject.SetActive(true);
-            group.DOKill();
-            var rt = group.GetComponent<RectTransform>();
+            group.blocksRaycasts = false;
+            group.alpha = 0f;
+
             rt.anchoredPosition = from;
-            group.DOFade(1f, fadeTime);
-            rt.DOAnchorPos(to, fadeTime).SetEase(Ease.OutBack);
+            rt.localScale = Vector3.one * 0.96f;
+
+            Vector2 delta = to - from;
+            Vector2 dir = delta.sqrMagnitude > 0.001f ? delta.normalized : Vector2.up;
+
+            // Небольшой overshoot, но уже очень мягкий
+            Vector2 overshootPosition = to + dir * 5f;
+
+            float fadeDur = Mathf.Max(0.07f, AnimTime * 0.5f);
+            float attackDur = Mathf.Max(0.14f, AnimTime * 0.85f);
+            float settleDur = Mathf.Max(0.12f, AnimTime * 0.6f);
+
+            float scaleAttackDur = Mathf.Max(0.1f, AnimTime * 0.55f);
+            float scaleSettleDur = Mathf.Max(0.1f, AnimTime * 0.55f);
+
+            var seq = DOTween.Sequence()
+                .SetTarget(group)
+                .SetUpdate(true);
+
+            seq.Join(group.DOFade(1f, fadeDur).SetEase(Ease.OutSine));
+
+            seq.Join(rt.DOAnchorPos(overshootPosition, attackDur).SetEase(Ease.OutCubic));
+
+            seq.Join(rt.DOScale(1.02f, scaleAttackDur).SetEase(Ease.OutSine));
+
+            seq.Append(rt.DOAnchorPos(to, settleDur).SetEase(Ease.InOutSine));
+            seq.Join(rt.DOScale(1f, scaleSettleDur).SetEase(Ease.InOutSine));
+
+            seq.OnComplete(() => group.blocksRaycasts = true);
         }
 
-        private void HidePanel(CanvasGroup group, Vector2 to, TweenCallback onComplete)
+        private void HidePanel(CanvasGroup group, Vector2 to, TweenCallback onComplete = null)
         {
-            if (group == null) return;
-            group.DOKill();
-            var rt = group.GetComponent<RectTransform>();
-            group.DOFade(0f, fadeTime);
-            rt.DOAnchorPos(to, fadeTime)
-                .SetEase(Ease.InBack)
-                .OnComplete(onComplete);
-        }
-
-        private static void SetHidden(CanvasGroup g)
-        {
-            if (g == null) return;
-            g.DOKill();
-            g.alpha = 0f;
-            g.gameObject.SetActive(false);
-        }
-
-        private void KillBlink()
-        {
-            if (_continueBlink != null)
+            if (group == null)
             {
-                _continueBlink.Kill();
-                _continueBlink = null;
+                onComplete?.Invoke();
+                return;
             }
+
+            DOTween.Kill(group);
+
+            if (!group.gameObject.activeInHierarchy && group.alpha <= 0.01f)
+            {
+                onComplete?.Invoke();
+                return;
+            }
+
+            var rt = group.GetComponent<RectTransform>();
+
+            group.blocksRaycasts = false;
+
+            float fadeDur = Mathf.Max(0.06f, AnimTime * 0.45f);
+            float moveDur = Mathf.Max(0.12f, AnimTime * 0.75f);
+
+            var seq = DOTween.Sequence()
+                .SetTarget(group)
+                .SetUpdate(true);
+
+            seq.Join(group.DOFade(0f, fadeDur).SetEase(Ease.InOutSine));
+
+            if (rt != null)
+            {
+                seq.Join(rt.DOAnchorPos(to, moveDur).SetEase(Ease.InOutCubic));
+                seq.Join(rt.DOScale(0.97f, moveDur).SetEase(Ease.InOutCubic));
+            }
+
+            seq.OnComplete(() =>
+            {
+                group.gameObject.SetActive(false);
+                onComplete?.Invoke();
+            });
         }
 
         protected override void OnDisposed()
@@ -384,6 +701,13 @@ namespace RKS.HadalZone.Core.Dialogue
                 _mgr.OnEnded -= OnEnded;
                 _mgr.OnNodeChanged -= OnNode;
             }
+
+            StopTyping();
+            HideContinue();
+            ClearChoices();
+
+            if (dialogueGroup != null) DOTween.Kill(dialogueGroup);
+            if (speakerGroup != null) DOTween.Kill(speakerGroup);
         }
     }
 }
